@@ -44,8 +44,8 @@ hs_err_pid*
 # .idea/uiDesigner.xml
 
 # Gradle:
-# .idea/gradle.xml
-# .idea/libraries
+.idea/gradle.xml
+.idea/libraries
 
 # Mongo Explorer plugin:
 # .idea/mongoSettings.xml
@@ -80,3 +80,10 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
+
+### Gradle ###
+# Exclude Folder List #
+.gradle/
+build/
+
+.DS_Store

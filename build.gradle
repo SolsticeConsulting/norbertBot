@@ -13,5 +13,4 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
     implementation 'com.slack.api:bolt-servlet:1.18.0'
-    implementation 'au.com.dius.pact.provider:spring:4.3.4'
 }
