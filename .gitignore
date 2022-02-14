@@ -43,7 +43,6 @@ Thumbs.db
 
 # Build output directies
 target
-build
 
 # IntelliJ specific files/directories
 out
