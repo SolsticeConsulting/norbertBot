@@ -1,0 +1,10 @@
+steps:
+  - name: gradle:7.3.3-jdk11
+    entrypoint: gradle
+    args: [ "test" ]
+  - name: gradle:7.3.3-jdk11
+    entrypoint: gradle
+    args: [ "assemble" ]
+  - name: gcr.io/cloud-builders/docker
+    args: [ "build", "-t", "gcr.io/$PROJECT_ID/norberbot", "--build-arg=JAR_FILE=build/libs/$PROJECT_ID/norberbot.jar", "." ]
+images: [ 'gcr.io/$PROJECT_ID/norberbot' ]
