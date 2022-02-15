@@ -1,10 +1,29 @@
 steps:
+  #Run test
   - name: gradle:7.3.3-jdk11
     entrypoint: gradle
     args: [ "test" ]
+  # Build gradle
   - name: gradle:7.3.3-jdk11
     entrypoint: gradle
     args: [ "assemble" ]
-  - name: gcr.io/cloud-builders/docker
-    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/norberbot','.']
-images: [ 'gcr.io/$PROJECT_ID/norberbot' ]
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/idea-slackbot:$COMMIT_SHA','--build-arg=JAR_FILE=/build/libs/norberbot.jar','.' ]
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'gcr.io/$PROJECT_ID/idea-slackbot:$COMMIT_SHA' ]
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+    - 'run'
+    - 'deploy'
+    - 'idea-slackbot'
+    - '--image'
+    - 'gcr.io/$PROJECT_ID/idea-slackbot:$COMMIT_SHA'
+    - '--region'
+    - 'us-central1'
+images:
+  - 'gcr.io/$PROJECT_ID/idea-slackbot:$COMMIT_SHA'
+timeout: 1200s

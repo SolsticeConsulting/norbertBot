@@ -15,10 +15,10 @@
 *.dmg
 *.gz
 *.iso
-*.jar
 *.rar
 *.tar
 *.zip
+
 
 # Logs and databases #
 ######################
@@ -43,7 +43,6 @@ Thumbs.db
 
 # Build output directies
 target
-
 # IntelliJ specific files/directories
 out
 .idea

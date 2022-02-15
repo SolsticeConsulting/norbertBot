@@ -1,8 +1,5 @@
-FROM gradle:6.8-jdk11 AS build
-COPY --chown=gradle:gradle . /home/gradle/src
-WORKDIR /home/gradle/src
-RUN gradle build --no-daemon
-FROM openjdk:11
-EXPOSE 8080
-ONBUILD COPY /home/gradle/src/build/libs/*.jar /app/norberbot.jar
-ENTRYPOINT ["java", "-jar", "/app/norberbot.jar"]
+FROM adoptopenjdk/openjdk11:alpine-jre
+
+ARG JAR_FILE=JAR_FILE_MUST_BE_SPECIFIED_AS_BUILD_ARG
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java", "-Djava.security.edg=file:/dev/./urandom","-jar","/app.jar"]
