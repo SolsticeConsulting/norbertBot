@@ -43,7 +43,12 @@ Thumbs.db
 
 # Build output directies
 target
+<<<<<<< HEAD
 build
+=======
+/vscode
+*/vscode
+>>>>>>> c4616b9 (added vscode to ignore)
 # IntelliJ specific files/directories
 out
 .idea
