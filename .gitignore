@@ -48,6 +48,8 @@ Thumbs.db
 */build
 /vscode
 */vscode
+*/.vscode
+/.vscode
 
 target
 # IntelliJ specific files/directories
