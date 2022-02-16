@@ -21,6 +21,5 @@ dependencies {
 }
 
 bootJar {
-    archiveBaseName = "norberbot"
     archiveFileName = "norberbot.jar"
 }
