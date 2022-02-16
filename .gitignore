@@ -50,6 +50,7 @@ Thumbs.db
 */vscode
 *.vscode
 .vscode
+!.vscode/launch.json
 
 target
 # IntelliJ specific files/directories
