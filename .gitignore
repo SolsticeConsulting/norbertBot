@@ -15,10 +15,10 @@
 *.dmg
 *.gz
 *.iso
-*.jar
 *.rar
 *.tar
 *.zip
+
 
 # Logs and databases #
 ######################
@@ -42,6 +42,7 @@ Thumbs.db
 .m2
 
 # Build output directies
+<<<<<<< HEAD
 /target
 */target
 /build
@@ -49,6 +50,9 @@ Thumbs.db
 /vscode
 */vscode
 
+=======
+target
+>>>>>>> 806433e97f5fac180a08205cf84291280315a820
 # IntelliJ specific files/directories
 out
 .idea
