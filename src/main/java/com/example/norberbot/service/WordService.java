@@ -1,28 +1,25 @@
-package com.example.norberbot;
-
-import java.util.*;
-import java.util.stream.Collectors;
+package com.example.norberbot.service;
 
 import com.example.norberbot.model.Word;
-import com.example.norberbot.model.WordsDescriptions;
+import com.example.norberbot.repository.WordRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class WordService {
 
-    private List<Word> dictionary;
-
-    public WordService() {
-        this.dictionary = new ArrayList<Word>();
-    }
+    @Autowired
+    private WordRepository wordRepository;
 
     boolean saveWord(Word word) {
-        if (!dictionary.contains(word)) {
-            this.dictionary.add(word);
+        if (findWord(word.getName()) != null) {
+            this.wordRepository.save(word);
             return true;
         }
         return false;
     }
 
-    public List<WordsDescriptions> findWordDescriptions(String name) {
+/*    public List<WordsDescriptions> findWordDescriptions(String name) {
         Word wordFound = findWord(name);
         if (wordFound != null) {
             List<WordsDescriptions> descriptions = wordFound.getDescriptions()
@@ -46,7 +43,7 @@ public class WordService {
                 System.out.println("Definicion: " + def.getDefinition());
             });
         });
-    }
+    }*/
 
     // public List<String> findWordsThatContains(String str) {
     // return wordRepository
@@ -57,9 +54,7 @@ public class WordService {
     // }
 
     public Word findWord(String name) {
-
-        Word wordFound = dictionary.stream().filter(item -> item.getWord().equals(name)).findFirst()
-                .orElse(null);
+        Word wordFound = wordRepository.findByName(name);
         return wordFound != null ? wordFound : null;
     }
 }

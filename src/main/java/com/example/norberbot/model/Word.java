@@ -1,26 +1,20 @@
 package com.example.norberbot.model;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+@Entity
+@Table(name = "words")
+public class Word implements Serializable {
 
-// @Entity
-// @Table(name = "ideadefinitions")
-public class Word {
-
-    // @Id
-    // @Column(name = "palabras", unique = true)
+    @Id
+    @Column(name = "palabras", unique = true)
     private String name;
 
-    // @OneToMany(mappedBy = "word", fetch = FetchType.LAZY, cascade =
-    // CascadeType.ALL)
+    @OneToMany(mappedBy = "word", fetch = FetchType.LAZY, cascade =
+    CascadeType.ALL)
     private Set<WordsDescriptions> descriptions;
 
     public Word(String name) {
@@ -32,11 +26,11 @@ public class Word {
 
     }
 
-    public void setWord(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getWord() {
+    public String getName() {
         return name;
     }
 

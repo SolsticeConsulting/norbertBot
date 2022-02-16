@@ -7,26 +7,27 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
-// @Table(name = "ideadefinitions")
-// @Entity
-public class WordsDescriptions {
+@Table(name = "ideadefinitions")
+@Entity
+public class WordsDescriptions implements Serializable {
 
-    // @Id
-    // @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    // @JoinColumn(name = "word", nullable = false)
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "Palabra", nullable = false)
     private Word word;
 
-    // @Column(name = "definicion")
+    @Column(name = "Definicion")
     private String definition;
 
-    // @Column(name = "ver")
+    @Column(name = "Ver")
     private String see;
 
-    // @Column(name = "fuente")
+    @Column(name = "Fuente")
     private String link;
 
-    // @Column(name = "otros")
+    @Column(name = "Notas")
     private String other;
 
     public WordsDescriptions() {

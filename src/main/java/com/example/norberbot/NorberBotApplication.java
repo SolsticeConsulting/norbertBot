@@ -1,13 +1,5 @@
 package com.example.norberbot;
 
-import java.util.List;
-
-import com.example.norberbot.controller.*;
-import com.example.norberbot.model.Word;
-import com.example.norberbot.model.WordsDescriptions;
-
-import org.h2.command.dml.Set;
-import org.hibernate.annotations.SourceType;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
@@ -19,7 +11,7 @@ public class NorberBotApplication {
     public static void main(String[] args) {
         SpringApplication.run(NorberBotApplication.class, args);
 
-        WordService dictionary = new WordService();
+/*        WordService dictionary = new WordService();
 
         Word word1 = new Word("violencia de genero");
         word1.setDescriptions("majin buu");
@@ -36,7 +28,7 @@ public class NorberBotApplication {
 
         List<WordsDescriptions> definitions = dictionary.findWordDescriptions("violencia de netero");
 
-        definitions.forEach(def -> System.out.println(def.getDefinition()));
+        definitions.forEach(def -> System.out.println(def.getDefinition()));*/
 
         // System.out.println(dictionary.findWordsThatContains("violencia"));
     }
