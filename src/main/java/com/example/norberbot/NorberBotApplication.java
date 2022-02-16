@@ -1,6 +1,13 @@
 package com.example.norberbot;
 
-import com.example.norberbot.controller.SearchController;
+import java.util.List;
+
+import com.example.norberbot.controller.*;
+import com.example.norberbot.model.Word;
+import com.example.norberbot.model.WordsDescriptions;
+
+import org.h2.command.dml.Set;
+import org.hibernate.annotations.SourceType;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
@@ -12,19 +19,26 @@ public class NorberBotApplication {
     public static void main(String[] args) {
         SpringApplication.run(NorberBotApplication.class, args);
 
-        SearchController searchController = new SearchController();
-        searchController.createWord("violencia de genero");
-        searchController.addDescription("violencia de genero","majin buu");
-        searchController.addDescription("violencia de genero","kid buu");
+        WordService dictionary = new WordService();
 
-        searchController.createWord("violencia de netero");
-        searchController.addDescription("violencia de netero","vencio al rey hormiga");
-        searchController.addDescription("violencia de netero","most badass");
+        Word word1 = new Word("violencia de genero");
+        word1.setDescriptions("majin buu");
+        word1.setDescriptions("kid buu");
 
-        searchController.printDictionary();
-        System.out.println(searchController.findWordDescription("violencia de netero").size());
+        Word word2 = new Word("violencia de netero");
+        word2.setDescriptions("vencio al rey hormiga");
+        word2.setDescriptions("most badass");
 
-        System.out.println(searchController.findWordsThatContains("violencia"));
+        dictionary.saveWord(word1);
+        dictionary.saveWord(word2);
+
+        dictionary.printDictionary();
+
+        List<WordsDescriptions> definitions = dictionary.findWordDescriptions("violencia de netero");
+
+        definitions.forEach(def -> System.out.println(def.getDefinition()));
+
+        // System.out.println(dictionary.findWordsThatContains("violencia"));
     }
 
 }

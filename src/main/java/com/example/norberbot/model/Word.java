@@ -1,70 +1,57 @@
 package com.example.norberbot.model;
 
-import javax.persistence.*;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-@Entity
-@Table(name = "searchedwords")
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+// @Entity
+// @Table(name = "ideadefinitions")
 public class Word {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    // @Id
+    // @Column(name = "palabras", unique = true)
+    private String name;
 
-    @Column(name = "palabra")
-    private String word;
+    // @OneToMany(mappedBy = "word", fetch = FetchType.LAZY, cascade =
+    // CascadeType.ALL)
+    private Set<WordsDescriptions> descriptions;
 
-    private Integer quantity;
-
-    private Date date;
-
-    public Word(String word) {
-        this.word = word;
-    }
-
-    public Word(Integer id, String word) {
-        this.id = id;
-        this.word = word;
+    public Word(String name) {
+        this.name = name;
+        this.descriptions = new HashSet<>();
     }
 
     public Word() {
 
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public void setWord(String name) {
+        this.name = name;
     }
 
     public String getWord() {
-        return word;
+        return name;
     }
 
-    public void setWord(String word) {
-        this.word = word;
+    public void setDescriptions(String definition) {
+        WordsDescriptions description = new WordsDescriptions(definition);
+        descriptions.add(description);
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
+    public Set<WordsDescriptions> getDescriptions() {
+        return this.descriptions;
     }
 
     @Override
     public String toString() {
-        return ":book: " + "'" + word + "'" + " cantidad de veces buscada :mag: :  " + quantity;
+        return name + System.lineSeparator();
+
     }
 }
