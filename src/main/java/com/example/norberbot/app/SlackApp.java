@@ -11,10 +11,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SlackApp {
 
-    // private static final Logger logger = LoggerFactory.getLogger(SlackApp.class);
-
-    // private String testChannel = "idea-bot";
-
     @Bean
     public App initSlackApp() {
         App app = new App();
@@ -44,7 +40,7 @@ public class SlackApp {
                 ChatPostMessageResponse message = ctx.client().chatPostMessage(r -> r
                         .channel(event.getItem().getChannel())
                         .threadTs(event.getItem().getTs())
-                        .text("<@" + event.getUser() + "> Thank you! We greatly appreciate your efforts :two_hearts:"));
+                        .text("<@" + event.getUser() + "> Que nadie se atreva, a tocar a mi vieja"));
                 if (!message.isOk()) {
                     ctx.logger.error("chat.postMessage failed: {}", message.getError());
                 }
