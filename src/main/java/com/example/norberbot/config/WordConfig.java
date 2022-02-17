@@ -28,13 +28,11 @@ public class WordConfig {
             boolean test2 = wordService.saveWord("violencia de netero","vencio al rey hormiga");
             System.out.println("test1: " + test1 + "y test2:" + test2);
 
-            wordService.findWordsThatContains("teta")
+            wordService.findWordsThatContains("violencia")
                     .stream()
                     .forEach(word -> {
                         System.out.println(word);
                     });
-
-
         };
     }
 }
