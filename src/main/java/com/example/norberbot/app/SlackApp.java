@@ -21,12 +21,12 @@ public class SlackApp {
 
         app.event(AppMentionEvent.class, (payload, ctx) -> {
 
-            AppMentionEvent mm = payload.getEvent();
-            if (mm.getText().contains("Hola Norber")) {
+            AppMentionEvent incomingEvent = payload.getEvent();
+            if (incomingEvent.getText().contains("Hola Norber")) {
                 ChatPostMessageResponse message = ctx.client().chatPostMessage(r -> r
-                        .channel(mm.getChannel())
-                        .threadTs(mm.getTs())
-                        .text("<@" + mm.getUser() + "> Hola me dicen Bot,NorberBot :robot_face:"));
+                        .channel(incomingEvent.getChannel())
+                        .threadTs(incomingEvent.getTs())
+                        .text("<@" + incomingEvent.getUser() + "> Hola me dicen Bot,NorberBot :robot_face:"));
                 if (!message.isOk()) {
                     ctx.logger.error("chat.postMessage failed: {}", message.getError());
                 }
