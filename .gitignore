@@ -42,6 +42,16 @@ Thumbs.db
 .m2
 
 # Build output directies
+/target
+*/target
+/build
+*/build
+/vscode
+*/vscode
+*.vscode
+.vscode
+!.vscode/launch.json
+
 target
 build
 # IntelliJ specific files/directories
