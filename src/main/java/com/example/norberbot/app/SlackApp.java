@@ -15,10 +15,6 @@ public class SlackApp {
     public App initSlackApp() {
         App app = new App();
 
-        app.command("/hello", (req, ctx) -> {
-            return ctx.ack("What's up? :two_hearts:");
-        });
-
         app.event(AppMentionEvent.class, (payload, ctx) -> {
 
             AppMentionEvent incomingEvent = payload.getEvent();
