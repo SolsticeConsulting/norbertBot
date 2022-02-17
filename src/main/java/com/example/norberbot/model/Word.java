@@ -1,3 +1,4 @@
+/*
 package com.example.norberbot.model;
 
 import javax.persistence.*;
@@ -49,3 +50,4 @@ public class Word implements Serializable {
 
     }
 }
+*/

@@ -1,60 +1,41 @@
 package com.example.norberbot.service;
 
-import com.example.norberbot.model.Word;
-import com.example.norberbot.repository.WordRepository;
+import com.example.norberbot.model.Definition;
+import com.example.norberbot.repository.DefinitionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class WordService {
 
-    @Autowired
-    private WordRepository wordRepository;
+    private final DefinitionRepository definitionRepository;
 
-    boolean saveWord(Word word) {
-        if (findWord(word.getName()) != null) {
-            this.wordRepository.save(word);
+    @Autowired
+    public WordService(DefinitionRepository definitionRepository) {
+        this.definitionRepository = definitionRepository;
+    }
+
+    public boolean saveWord(String name, String definition) {
+        if (findWord(name)!=null) {
+           definitionRepository.save(new Definition(name,definition));
             return true;
         }
-        return false;
+        else {return false;}
     }
 
-/*    public List<WordsDescriptions> findWordDescriptions(String name) {
-        Word wordFound = findWord(name);
-        if (wordFound != null) {
-            List<WordsDescriptions> descriptions = wordFound.getDescriptions()
-                    .stream()
-                    .collect(Collectors.toList());
-            return descriptions;
-        } else {
-            return null;
+     public List<Definition> findWordsThatContains(String str) {
+        return definitionRepository
+                .findAll()
+                .stream()
+                .filter(entry -> entry.getWord().contains((str.toLowerCase())))
+                .collect(Collectors.toList());
         }
-    }
 
-    void printDictionary() {
-        // wordRepository.entrySet().forEach(entry -> {
-        // System.out.println(entry.getKey() + " " + entry.getValue());
-        // });
-        this.dictionary.forEach(entry -> {
-            Set<WordsDescriptions> description = entry.getDescriptions();
-            System.out.println("\nPalabra: " + entry);
-            System.out.println("===================");
-            description.forEach(def -> {
-                System.out.println("Definicion: " + def.getDefinition());
-            });
-        });
-    }*/
-
-    // public List<String> findWordsThatContains(String str) {
-    // return wordRepository
-    // .keySet()
-    // .stream()
-    // .filter(entry -> entry.contains(str.toLowerCase()))
-    // .collect(Collectors.toList());
-    // }
-
-    public Word findWord(String name) {
-        Word wordFound = wordRepository.findByName(name);
-        return wordFound != null ? wordFound : null;
+    public Definition findWord(String name) {
+            Definition wordFound = definitionRepository.findByWord(name);
+            return wordFound;
     }
 }
