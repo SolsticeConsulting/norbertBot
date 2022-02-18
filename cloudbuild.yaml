@@ -1,6 +1,10 @@
 steps:
   #Run test
+<<<<<<< HEAD
   - name:  gradle:7.4.0-jdk17
+=======
+  - name: gradle:7.3.3-jdk15
+>>>>>>> 4e652d1 (Add handlers to make a response to a mention event)
     entrypoint: gradle
   # Build gradle
   - name: gradle:7.4.0-jdk17
