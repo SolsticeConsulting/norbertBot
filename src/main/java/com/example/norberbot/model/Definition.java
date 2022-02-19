@@ -19,7 +19,6 @@ public class Definition {
     @Column(name = "Fuente")
     private String link;
 
-
     @Column(name = "Otros")
     private String other;
 
@@ -50,26 +49,6 @@ public class Definition {
 
     public String getOther() {
         return other;
-    }
-
-    public void setWord(String word) {
-        this.word = word;
-    }
-
-    public void setDefinition(String definition) {
-        this.definition = definition;
-    }
-
-    public void setSee(String see) {
-        this.see = see;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public void setOther(String other) {
-        this.other = other;
     }
 
     public boolean checkWord(String string) {
