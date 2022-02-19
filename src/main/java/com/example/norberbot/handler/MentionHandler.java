@@ -12,6 +12,7 @@ import com.slack.api.model.event.AppMentionEvent;
 import com.slack.api.model.event.Event;
 import one.util.streamex.StreamEx;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,9 +36,10 @@ public class MentionHandler implements EventHandler {
             if (Pattern.matches("\\w+(:+)", mentionContent)) {
                 String word = Splitter.on(":").split(mentionContent).iterator().next();
                 answer = handleDefinition(word);
-            }
-            else{
-                answer = AnswerHelper.getAnswer(mentionContent);
+            } else if (mentionContent.equals("opciones")) {
+                answer = handleOptions();
+            } else {
+                answer = AnswerHelper.getHelpText();
             }
         }
         try {
@@ -49,11 +51,28 @@ public class MentionHandler implements EventHandler {
 
     private String handleDefinition(String word) {
         List<String> possibleDefinitions = StreamEx.of(wordService.findWordsThatContains(word)).map(Definition::getWord).toList();
-        int counter = 1;
         StringJoiner answer = new StringJoiner("");
-        for (String possibleDefinition : possibleDefinitions) {
-            answer.add(EmojiHelper.getEmojiNumber(counter)).add(possibleDefinition).add("\n\n\n");
-            counter++;
+        if (possibleDefinitions.isEmpty()) {
+            answer.add(AnswerHelper.getNoDefinitionsText());
+            answer.add("_" + word + "_");
+            answer.add(AnswerHelper.getOptionsHeaderText());
+            answer.add(handleOptions());
+        } else {
+            int counter = 1;
+            for (String possibleDefinition : possibleDefinitions) {
+                answer.add(EmojiHelper.getEmojiNumber(counter)).add(possibleDefinition).add("\n\n\n");
+                counter++;
+            }
+        }
+        return answer.toString();
+    }
+
+    private String handleOptions() {
+        StringJoiner answer = new StringJoiner("");
+        answer.add(AnswerHelper.getOptionsHeaderText());
+        List<String> options = StreamEx.of(wordService.getAllWords()).map(Definition::getWord).toList();
+        for (String option : options) {
+            answer.add("*").add(option).add("\n\n");
         }
         return answer.toString();
     }
@@ -61,7 +80,7 @@ public class MentionHandler implements EventHandler {
     @Override
     public void replyToAnEvent(Event event, MethodsClient client, String answer) throws SlackApiException, IOException {
         AppMentionEvent appMentionEvent = (AppMentionEvent) event;
-        ChatPostMessageResponse message = client.chatPostMessage(r -> r
+        client.chatPostMessage(r -> r
                 .channel(appMentionEvent.getChannel())
                 .threadTs(appMentionEvent.getTs())
                 .text(answer));

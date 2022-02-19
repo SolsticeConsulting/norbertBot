@@ -29,6 +29,10 @@ public class WordService {
         }
     }
 
+    public List<Definition> getAllWords(){
+        return definitionRepository.findAll();
+    }
+
     public List<Definition> findWordsThatContains(String str) {
         return StreamEx.of(definitionRepository.findAll())
                 .filter(entry -> entry.getWord().contains((str.toLowerCase())))
