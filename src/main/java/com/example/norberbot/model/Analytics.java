@@ -27,6 +27,10 @@ public class Analytics {
         this.quantity = 0;
     }
 
+    public int getQuantity(){
+        return this.quantity;
+    }
+
     @Override
     public String toString() {
         return ":book: " + "'" + word + "'" + " cantidad de veces buscada :mag: :  " + quantity;
