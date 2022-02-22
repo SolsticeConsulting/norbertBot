@@ -47,6 +47,12 @@ public class MentionHandler implements EventHandler {
             } else if (mentionContent.equals("opciones")) {
                 List<String> availableDefinitions = StreamEx.of(wordService.getAllWords()).map(Definition::getWord).toList();
                 layoutBlockAnswer = List.copyOf(buildBlockElements(AnswerHelper.getOptionsHeaderText(), availableDefinitions));
+            } else if (mentionContent.equals("crear")) {
+                layoutBlockAnswer.add(section(section -> section.text(markdownText("hola"))));
+                layoutBlockAnswer.add(divider());
+                List<BlockElement> buttonElements = new ArrayList<>();
+                buttonElements.add(button(b -> b.text(plainText(pt -> pt.text("hola"))).value("hola").actionId("hola"+1)));
+                layoutBlockAnswer.add(actions(buttonElements));
             }
         }
         try {
@@ -71,7 +77,7 @@ public class MentionHandler implements EventHandler {
         blockElements.add(divider());
         List<BlockElement> buttonElements = new ArrayList<>();
         for (String actionable : actionables) {
-            buttonElements.add(button(b -> b.text(plainText(pt -> pt.text(actionable))).value(actionable)));
+            buttonElements.add(button(b -> b.text(plainText(pt -> pt.text(actionable))).value(actionable).actionId("hola"+Math.random())));
         }
         blockElements.add(actions(buttonElements));
         return blockElements;
