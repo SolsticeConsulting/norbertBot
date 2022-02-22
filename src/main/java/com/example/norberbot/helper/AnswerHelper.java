@@ -22,6 +22,8 @@ public class AnswerHelper {
 
     private static final String NO_DEFINITIONS = "No encontré definiciones en el glosario de IDEA relacionadas con: ";
 
+    private static final String DEFINITIONS_HEADER = "He encontrado las siguientes palabras, por favor selecciona una para leer su definicion: ";
+
     public static String getHelpText(){
         return HELP;
     }
@@ -32,5 +34,9 @@ public class AnswerHelper {
 
     public static String getNoDefinitionsText(){
         return NO_DEFINITIONS;
+    }
+
+    public static String getDefinitionsHeader(){
+        return DEFINITIONS_HEADER;
     }
 }
