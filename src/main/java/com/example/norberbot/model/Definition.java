@@ -26,9 +26,12 @@ public class Definition {
 
     }
 
-    public Definition(String word, String definition) {
+    public Definition(String word, String definition, String see, String link, String other) {
         this.word = word;
         this.definition = definition;
+        this.see = see;
+        this.link = link;
+        this.other = other;
     }
 
     public String getWord() {

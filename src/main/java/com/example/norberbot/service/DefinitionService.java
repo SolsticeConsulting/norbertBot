@@ -19,14 +19,6 @@ public class DefinitionService {
         this.definitionRepository = definitionRepository;
     }
 
-    public boolean saveWord(String name, String definition)     {
-        if(findWord(name.toLowerCase()) == null && HelperFunctions.checkStringLength(name)) {
-            definitionRepository.save(new Definition(name.toLowerCase(),definition.toLowerCase()));
-            return true;
-        }
-        return false;
-    }
-
     public List<Definition> findWordsThatContains(String str) {
          if (HelperFunctions.checkStringLength(str)) {
              return StreamEx.of(definitionRepository.findAll())
