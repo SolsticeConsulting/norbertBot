@@ -1,10 +1,9 @@
 steps:
   #Run test
-  - name: gradle:7.3.3-jdk15
+  - name:  gradle:7.4.0-jdk17
     entrypoint: gradle
-    args: [ "test" ]
   # Build gradle
-  - name: gradle:7.3.3-jdk15
+  - name: gradle:7.4.0-jdk17
     entrypoint: gradle
     args: [ "assemble" ]
   # Build the container image
