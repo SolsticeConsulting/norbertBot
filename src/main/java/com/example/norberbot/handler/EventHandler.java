@@ -10,6 +10,5 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 
 public interface EventHandler {
-    public void handle(Event event, String eventContent, MethodsClient client);
-    public void replyToAnEventWithBlock(Event event, @NotNull MethodsClient client, LayoutBlock... blockElements) throws SlackApiException, IOException;
+    public void handle(Event event, String content, MethodsClient client);
 }

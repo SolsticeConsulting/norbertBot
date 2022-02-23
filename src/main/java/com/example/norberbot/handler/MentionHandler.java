@@ -30,7 +30,7 @@ import static com.slack.api.model.block.composition.BlockCompositions.plainText;
 import static com.slack.api.model.block.element.BlockElements.button;
 
 @Component
-public class MentionHandler implements EventHandler {
+public class MentionHandler extends SlackHandler implements EventHandler{
 
     @Autowired
     private WordService wordService;
@@ -47,12 +47,6 @@ public class MentionHandler implements EventHandler {
             } else if (mentionContent.equals("opciones")) {
                 List<String> availableDefinitions = StreamEx.of(wordService.getAllWords()).map(Definition::getWord).toList();
                 layoutBlockAnswer = List.copyOf(buildBlockElements(AnswerHelper.getOptionsHeaderText(), availableDefinitions));
-            } else if (mentionContent.equals("crear")) {
-                layoutBlockAnswer.add(section(section -> section.text(markdownText("hola"))));
-                layoutBlockAnswer.add(divider());
-                List<BlockElement> buttonElements = new ArrayList<>();
-                buttonElements.add(button(b -> b.text(plainText(pt -> pt.text("hola"))).value("hola").actionId("hola"+1)));
-                layoutBlockAnswer.add(actions(buttonElements));
             }
         }
         try {
@@ -69,28 +63,5 @@ public class MentionHandler implements EventHandler {
             return buildBlockElements(AnswerHelper.getNoDefinitionsText(), availableDefinitions);
         }
         return buildBlockElements(AnswerHelper.getDefinitionsHeader(), possibleDefinitions);
-    }
-
-    private List<LayoutBlock> buildBlockElements(String header, List<String> actionables) {
-        List<LayoutBlock> blockElements = new ArrayList<>();
-        blockElements.add(section(section -> section.text(markdownText(header))));
-        blockElements.add(divider());
-        List<BlockElement> buttonElements = new ArrayList<>();
-        for (String actionable : actionables) {
-            buttonElements.add(button(b -> b.text(plainText(pt -> pt.text(actionable))).value(actionable).actionId("hola"+Math.random())));
-        }
-        blockElements.add(actions(buttonElements));
-        return blockElements;
-    }
-
-    @Override
-    public void replyToAnEventWithBlock(Event event, @NotNull MethodsClient client, LayoutBlock... blockElements) throws SlackApiException, IOException {
-        AppMentionEvent appMentionEvent = (AppMentionEvent) event;
-        client.chatPostMessage(req -> req
-                .channel(appMentionEvent.getChannel())
-                .blocks(asBlocks(
-                        blockElements
-                ))
-        );
     }
 }
