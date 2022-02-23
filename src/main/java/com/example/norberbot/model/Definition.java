@@ -61,8 +61,8 @@ public class Definition {
         return " " + System.lineSeparator() +
                 ":pencil2: Palabra: " + word + System.lineSeparator() +
                 ":book: Definicion: " + definition + System.lineSeparator() +
-                ((checkWord(link) == false) ? " " : ":link: Enlace: " + link + System.lineSeparator()) +
-                ((checkWord(see) == false) ? " " : ":eyes: Ver: " + see + System.lineSeparator()) +
-                ((checkWord(other) == false) ? " " : ":mag: Otros :" + other + System.lineSeparator());
+                ((!checkWord(link)) ? " " : ":link: Enlace: " + link + System.lineSeparator()) +
+                ((!checkWord(see)) ? " " : ":eyes: Ver: " + see + System.lineSeparator()) +
+                (!(checkWord(other)) ? " " : ":mag: Otros :" + other + System.lineSeparator());
         }
     }

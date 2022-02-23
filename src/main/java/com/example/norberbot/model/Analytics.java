@@ -20,7 +20,7 @@ public class Analytics {
     }
 
     public void updateQuantity(){
-        this.quantity += 1;
+        this.quantity++;
     }
 
     public void resetQuantity(){

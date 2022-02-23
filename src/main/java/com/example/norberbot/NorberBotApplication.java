@@ -11,4 +11,5 @@ public class NorberBotApplication {
     public static void main(String[] args) {
         SpringApplication.run(NorberBotApplication.class, args);
     }
+
 }
