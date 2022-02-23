@@ -2,6 +2,7 @@ package com.example.norberbot.service;
 
 import com.example.norberbot.model.Definition;
 import com.example.norberbot.repository.DefinitionRepository;
+import one.util.streamex.StreamEx;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,34 +35,72 @@ class DefinitionServiceTest {
 
     @BeforeEach
     void setUp() {
+<<<<<<< HEAD
         word = new Definition("name","definition",null,null,null);
+=======
+        word = new Definition("name", "definition");
+>>>>>>> origin
         wordList = new ArrayList<>();
+    }
+
+    @Test
+<<<<<<< HEAD
+    void findWordsThatContainsNameReturnsListWithValues() {
+        wordList.add(word);
+        wordList.add(new Definition("Gene Simmons","tested",null,null,null));
+        wordList.add(new Definition("violencia de genero","tested",null,null,null));
+=======
+    void saveWordReturnsTrueRepositoryIsCalled() {
+        given(definitionRepository.save(any(Definition.class))).willReturn(any(Definition.class));
+
+        boolean savedWord = definitionService.saveWord("name", "definition");
+
+        then(definitionRepository).should().save(any(Definition.class));
+        assertTrue(savedWord, "Word check failed");
+    }
+
+    @Test
+    void saveWordReturnsFalseAndRepositoryIsNotCalled() {
+        boolean savedWord = definitionService.saveWord("na", "definition");
+
+        verify(definitionRepository, never()).save(any(Definition.class));
+        assertFalse(savedWord, "Word check failed");
+    }
+
+    @Test
+    void saveWordReturnsFalseWordAlreadyExistsAndRepositoryIsNotCalled() {
+        given(definitionService.findWord("name")).willReturn(word);
+
+        boolean savedWord = definitionService.saveWord("name", "definition");
+
+        then(definitionRepository).should().findByWord(anyString());
+        assertFalse(savedWord, "Expected false value");
     }
 
     @Test
     void findWordsThatContainsNameReturnsListWithValues() {
         wordList.add(word);
-        wordList.add(new Definition("Gene Simmons","tested",null,null,null));
-        wordList.add(new Definition("violencia de genero","tested",null,null,null));
+        wordList.add(new Definition("Gene Simmons", "tested"));
+        wordList.add(new Definition("violencia de genero", "tested"));
+>>>>>>> origin
 
-        given(definitionRepository
-                .findAll()
-                .stream()
-                .filter(entry -> entry.getWord().contains((anyString().toLowerCase())))
-                .collect(Collectors.toList())).willReturn(wordList);
+        given(StreamEx.of(definitionRepository.findAll()).
+                filter(entry -> entry.getWord().contains((anyString().toLowerCase())))
+                .toList()
+        );
 
         List<Definition> wordsFounded = definitionService.findWordsThatContains("gene");
 
         then(definitionRepository).should().findAll();
-        assertEquals(2,wordsFounded.size());
+        assertEquals(2, wordsFounded.size());
     }
 
     @Test
     void findWordsThatContainsNameReturnsNull() {
         List<Definition> wordsFounded = definitionService.findWordsThatContains("na");
 
-        verify(definitionRepository,never()).findAll();
-        assertNull(wordsFounded,"Expected null value");
+        verify(definitionRepository, never()).findAll();
+        assertNull(wordsFounded, "Expected null value");
     }
 
     @Test
@@ -71,7 +110,7 @@ class DefinitionServiceTest {
         Definition wordFounded = definitionService.findWord(anyString());
 
         then(definitionRepository).should().findByWord(anyString());
-        assertEquals("name",wordFounded.getWord());
+        assertEquals("name", wordFounded.getWord());
     }
 
     @Test
@@ -81,7 +120,7 @@ class DefinitionServiceTest {
         Definition wordFounded = definitionService.findWord(anyString());
 
         then(definitionRepository).should().findByWord(anyString());
-        assertEquals(null,wordFounded);
+        assertNull(wordFounded, "Expected null value");
     }
 
 }

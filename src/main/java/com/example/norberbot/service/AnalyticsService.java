@@ -2,6 +2,7 @@ package com.example.norberbot.service;
 
 import com.example.norberbot.model.Analytics;
 import com.example.norberbot.repository.AnalyticsRepository;
+import one.util.streamex.StreamEx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +20,7 @@ public class AnalyticsService {
     }
 
     public List<Analytics> getAnalytics() {
-        return analyticsRepository
-                .findAll()
-                .stream()
-                .collect(Collectors.toList());
+        return StreamEx.of(analyticsRepository.findAll()).toList();
     }
 
     public void analyticsHandler(String name){
