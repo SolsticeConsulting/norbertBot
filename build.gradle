@@ -32,11 +32,6 @@ dependencies {
 bootJar {
     archiveFileName = "norberbot.jar"
 }
-<<<<<<< HEAD
 
 sourceCompatibility = JavaVersion.VERSION_15
 targetCompatibility = JavaVersion.VERSION_15
-=======
-sourceCompatibility = JavaVersion.VERSION_15
-targetCompatibility = JavaVersion.VERSION_15
->>>>>>> 4e652d1 (Add handlers to make a response to a mention event)

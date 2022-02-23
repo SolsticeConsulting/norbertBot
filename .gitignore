@@ -56,11 +56,8 @@ Thumbs.db
 
 target
 build
-<<<<<<< HEAD
 /vscode
 */vscode
-=======
->>>>>>> 4e652d1 (Add handlers to make a response to a mention event)
 # IntelliJ specific files/directories
 out
 .idea
