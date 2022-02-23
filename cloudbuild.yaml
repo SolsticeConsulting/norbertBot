@@ -26,4 +26,3 @@ steps:
     - 'us-central1'
 images:
   - 'gcr.io/$PROJECT_ID/idea-slackbot:$COMMIT_SHA'
-timeout: 1200s
