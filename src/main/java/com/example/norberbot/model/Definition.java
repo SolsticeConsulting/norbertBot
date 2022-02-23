@@ -61,8 +61,13 @@ public class Definition {
         return " " + System.lineSeparator() +
                 ":pencil2: Palabra: " + word + System.lineSeparator() +
                 ":book: Definicion: " + definition + System.lineSeparator() +
+<<<<<<< HEAD
                 ((!checkWord(link)) ? " " : ":link: Enlace: " + link + System.lineSeparator()) +
                 ((!checkWord(see)) ? " " : ":eyes: Ver: " + see + System.lineSeparator()) +
+=======
+                (!(checkWord(link)) ? " " : ":link: Enlace: " + link + System.lineSeparator()) +
+                (!(checkWord(see)) ? " " : ":eyes: Ver: " + see + System.lineSeparator()) +
+>>>>>>> 8b972b8 (Clean short if)
                 (!(checkWord(other)) ? " " : ":mag: Otros :" + other + System.lineSeparator());
         }
     }
