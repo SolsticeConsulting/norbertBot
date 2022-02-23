@@ -12,10 +12,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.never;
@@ -35,43 +35,15 @@ class DefinitionServiceTest {
 
     @BeforeEach
     void setUp() {
-        word = new Definition("name", "definition");
+        word = new Definition("name","definition",null,null,null);
         wordList = new ArrayList<>();
-    }
-
-    @Test
-    void saveWordReturnsTrueRepositoryIsCalled() {
-        given(definitionRepository.save(any(Definition.class))).willReturn(any(Definition.class));
-
-        boolean savedWord = definitionService.saveWord("name", "definition");
-
-        then(definitionRepository).should().save(any(Definition.class));
-        assertTrue(savedWord, "Word check failed");
-    }
-
-    @Test
-    void saveWordReturnsFalseAndRepositoryIsNotCalled() {
-        boolean savedWord = definitionService.saveWord("na", "definition");
-
-        verify(definitionRepository, never()).save(any(Definition.class));
-        assertFalse(savedWord, "Word check failed");
-    }
-
-    @Test
-    void saveWordReturnsFalseWordAlreadyExistsAndRepositoryIsNotCalled() {
-        given(definitionService.findWord("name")).willReturn(word);
-
-        boolean savedWord = definitionService.saveWord("name", "definition");
-
-        then(definitionRepository).should().findByWord(anyString());
-        assertFalse(savedWord, "Expected false value");
     }
 
     @Test
     void findWordsThatContainsNameReturnsListWithValues() {
         wordList.add(word);
-        wordList.add(new Definition("Gene Simmons", "tested"));
-        wordList.add(new Definition("violencia de genero", "tested"));
+        wordList.add(new Definition("Gene Simmons", "tested",null,null,null));
+        wordList.add(new Definition("violencia de genero", "tested",null,null,null));
 
         given(StreamEx.of(definitionRepository.findAll()).
                 filter(entry -> entry.getWord().contains((anyString().toLowerCase())))

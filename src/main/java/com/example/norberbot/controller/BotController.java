@@ -21,10 +21,6 @@ public class BotController {
         this.analyticsService = analyticsService;
     }
 
-    public boolean saveWord(String name, String definition){
-        return definitionService.saveWord(name,definition);
-    }
-
     public List<Definition> findWordsThatContains(String str){
         return definitionService.findWordsThatContains(str);
     }
