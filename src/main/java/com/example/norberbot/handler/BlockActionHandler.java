@@ -2,12 +2,10 @@ package com.example.norberbot.handler;
 
 import com.example.norberbot.helper.AnswerHelper;
 import com.example.norberbot.model.Definition;
-import com.example.norberbot.service.WordService;
+import com.example.norberbot.service.DefinitionService;
 import com.slack.api.bolt.context.builtin.ActionContext;
 import com.slack.api.methods.MethodsClient;
-import com.slack.api.methods.SlackApiException;
 import com.slack.api.model.block.LayoutBlock;
-import com.slack.api.model.event.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,10 +20,10 @@ import static com.slack.api.model.block.composition.BlockCompositions.markdownTe
 @Component
 public class BlockActionHandler extends SlackHandler implements ActionHandler {
     @Autowired
-    private WordService wordService;
+    private DefinitionService definitionService;
 
     public void handle(ActionContext actionContext, String content, MethodsClient client) {
-        Definition definition = wordService.findWord(content);
+        Definition definition = definitionService.findWord(content);
         try {
             actionContext.respond(buildBlockElements(definition));
         } catch (IOException e) {

@@ -1,4 +1,4 @@
-package com.example.norberbot.model.repository;
+package com.example.norberbot.repository;
 
 import com.example.norberbot.model.Definition;
 import org.springframework.data.jpa.repository.JpaRepository;
