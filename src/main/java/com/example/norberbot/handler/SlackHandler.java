@@ -41,4 +41,14 @@ public class SlackHandler {
         blockElements.add(actions(buttonElements));
         return blockElements;
     }
+
+    protected void postMessageToChannel(Event event, @NotNull MethodsClient client, LayoutBlock... blockElements) throws SlackApiException, IOException {
+        AppMentionEvent appMentionEvent = (AppMentionEvent) event;
+        client.chatPostMessage(req -> req
+                .channel(appMentionEvent.getChannel())
+                .blocks(asBlocks(
+                        blockElements
+                ))
+        );
+    }
 }
