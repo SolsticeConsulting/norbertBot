@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+import static com.slack.api.bolt.AppConfig.EnvVariableName.SLACK_BOT_TOKEN;
+
 public class PublishingMessage {
 
     /**
@@ -19,7 +21,7 @@ public class PublishingMessage {
             // Call the chat.postMessage method using the built-in WebClient
             var result = client.chatPostMessage(r -> r
                     // The token you used to initialize your app
-                    .token("xoxb-3069065446835-3060123218567-oha4XT5xAejvLASQ3lKrl87l")
+                    .token(SLACK_BOT_TOKEN)
                     .channel(id)
                     .text(text)
             // You could also use a blocks[] array to send richer content
