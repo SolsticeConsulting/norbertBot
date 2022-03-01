@@ -1,5 +1,7 @@
 package com.example.norberbot.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 
 @Table(name = "ideadefinitions")
@@ -11,15 +13,19 @@ public class Definition {
     private String word;
 
     @Column(name = "Definicion")
+    @Type(type = "text")
     private String definition;
 
     @Column(name = "Ver")
+    @Type(type = "text")
     private String see;
 
     @Column(name = "Fuente")
+    @Type(type = "text")
     private String link;
 
     @Column(name = "Otros")
+    @Type(type = "text")
     private String other;
 
     public Definition() {
