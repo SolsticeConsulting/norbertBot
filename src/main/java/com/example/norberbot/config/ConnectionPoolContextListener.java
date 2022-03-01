@@ -1,8 +1,8 @@
 package com.example.norberbot.config;
 
-import com.google.api.client.util.Value;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -17,8 +17,7 @@ import java.sql.SQLException;
 public class ConnectionPoolContextListener implements ServletContextListener {
     // Saving credentials in environment variables is convenient, but not secure - consider a more
     // secure solution such as https://cloud.google.com/kms/ to help keep secrets safe.
-    @Value("${INSTANCE_CONNECTION_NAME}")
-    private static String INSTANCE_CONNECTION_NAME;
+    private static String INSTANCE_CONNECTION_NAME = "idea-bot-323314:us-central1:slackbot-mysql";
     @Value("${DATA_SOURCE}")
     private static String JDBC_URL;
 
