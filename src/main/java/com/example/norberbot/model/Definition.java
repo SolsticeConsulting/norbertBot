@@ -9,22 +9,22 @@ import javax.persistence.*;
 public class Definition {
 
     @Id
-    @Column(name = "Palabras")
+    @Column(name = "Palabras",length = 100)
     private String word;
 
-    @Column(name = "Definicion")
+    @Column(name = "Definicion",length = 5000)
     @Type(type = "text")
     private String definition;
 
-    @Column(name = "Ver")
+    @Column(name = "Ver",length = 1000)
     @Type(type = "text")
     private String see;
 
-    @Column(name = "Fuente")
+    @Column(name = "Fuente",length = 450)
     @Type(type = "text")
     private String link;
 
-    @Column(name = "Otros")
+    @Column(name = "Otros",length = 450)
     @Type(type = "text")
     private String other;
 
