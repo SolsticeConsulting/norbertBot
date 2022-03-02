@@ -17,10 +17,8 @@ import java.sql.SQLException;
 public class ConnectionPoolContextListener implements ServletContextListener {
     // Saving credentials in environment variables is convenient, but not secure - consider a more
     // secure solution such as https://cloud.google.com/kms/ to help keep secrets safe.
-    @Value("${INSTANCE_CONNECTION_NAME}")
-    private static String INSTANCE_CONNECTION_NAME;
-    @Value("${DATA_SOURCE}")
-    private static String JDBC_URL;
+    private static String INSTANCE_CONNECTION_NAME = System.getenv("INSTANCE_CONNECTION_NAME");
+    private static String JDBC_URL = System.getenv("DATA_SOURCE");
 
 
     private DataSource createConnectionPool() {
