@@ -1,40 +1,52 @@
 package com.example.norberbot.calendar;
 
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
+import org.hibernate.annotations.Type;
+import org.jetbrains.annotations.NotNull;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Component
+@Table(name="calendar")
+@Entity
 public class Calendar {
 
-    ArrayList<String> slackChannels = new ArrayList<String>() {
-        {
-            add("calendar");
-            add("idea-bot");
-        }
-    };
+    @Type(type="text") @Column(length = 5) @NotNull
+    private String date;
+    @Id
+    private String name;
+    @Type(type="text") @NotNull
+    private String description;
 
-    private Map<String, String> dates = new HashMap<String, String>() {
-        {
-            put("25-02", "Norber Did it Again!");
-        }
-    };
+    public Calendar(@NotNull String date, String name, @NotNull String description) {
+        this.date = date;
+        this.name = name;
+        this.description = description;
+    }
+    public Calendar() {
+    }
 
-    @Scheduled(cron = "0 0/5 10 * * ?")
-    public void test() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM");
-        Date today = new Date();
-        String date = sdf.format(today);
+    @NotNull
+    public String getDate() {
+        return date;
+    }
 
-        if (dates.containsKey(date)) {
-            slackChannels.forEach(channel -> {
-                PublishingMessage.publishMessage(channel, dates.get(date));
-            });
-        }
+    public String getName() {
+        return name;
+    }
+
+    @NotNull
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public String toString() {
+        return "Calendar{" +
+                "date='" + date + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
