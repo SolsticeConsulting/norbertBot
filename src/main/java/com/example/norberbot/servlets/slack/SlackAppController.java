@@ -1,4 +1,4 @@
-package com.example.norberbot.config;
+package com.example.norberbot.servlets.slack;
 
 import com.slack.api.bolt.App;
 import com.slack.api.bolt.servlet.SlackAppServlet;
