@@ -20,7 +20,7 @@ import static com.slack.api.model.block.element.BlockElements.button;
 
 public class SlackHandler {
 
-    protected void replyToAnEventWithBlock(Event event, @NotNull MethodsClient client, LayoutBlock... blockElements) throws SlackApiException, IOException {
+    protected void replyToAnEventWithBlockMessage(Event event, @NotNull MethodsClient client, LayoutBlock... blockElements) throws SlackApiException, IOException {
         AppMentionEvent appMentionEvent = (AppMentionEvent) event;
         client.chatPostMessage(req -> req
                 .channel(appMentionEvent.getChannel())
@@ -40,5 +40,13 @@ public class SlackHandler {
         }
         blockElements.add(actions(buttonElements));
         return blockElements;
+    }
+
+    protected void replyToAnEventWithMessage(Event  event, @NotNull MethodsClient client, String text) throws SlackApiException, IOException {
+        AppMentionEvent appMentionEvent = (AppMentionEvent) event;
+        client.chatPostMessage(req -> req
+                .channel(appMentionEvent.getChannel())
+                .text(text)
+        );
     }
 }
