@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class DefinitionService {
@@ -22,12 +23,10 @@ public class DefinitionService {
     public List<Definition> findWordsThatContains(String str) {
          if (StringHelper.checkStringLength(str)) {
              return StreamEx.of(definitionRepository.findAll())
-                     .filter(entry -> entry.getWord().toLowerCase().contains(str.toLowerCase()))
+                     .filter(entry -> entry.getWord().toLowerCase(Locale.ENGLISH).contains(str.toLowerCase(Locale.ENGLISH)))
                      .toList();
          }
-         else {
-             return null;
-         }
+         return List.of();
      }
 
     public Definition findWord(String name) {

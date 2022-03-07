@@ -1,26 +1,23 @@
 package com.example.norberbot.config;
 
-import com.google.api.client.util.Value;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 @WebListener("Creates a connection pool that is stored in the Servlet's context for later use.")
 public class ConnectionPoolContextListener implements ServletContextListener {
     // Saving credentials in environment variables is convenient, but not secure - consider a more
     // secure solution such as https://cloud.google.com/kms/ to help keep secrets safe.
-    @Value("${INSTANCE_CONNECTION_NAME}")
-    private static String INSTANCE_CONNECTION_NAME;
-    @Value("${DATA_SOURCE}")
-    private static String JDBC_URL;
+    private static String INSTANCE_CONNECTION_NAME = System.getenv("INSTANCE_CONNECTION_NAME");
+    private static String JDBC_URL = System.getenv("DATA_SOURCE");
 
 
     private DataSource createConnectionPool() {
