@@ -30,7 +30,7 @@ public class AnswerHelper {
 
     private static final String DEFINITION_HEADER = ":books: La definición de la palabra es la siguiente: \n\n";
 
-    private static final String RESOURCE_HEADER = ":link: La fuente de la definición la encontráras en el siguiente enlace: ";
+    private static final String RESOURCE_HEADER = ":link: La fuente de la definición es la siguiente: ";
 
     private static final String MULTIPLE_OPTIONS_HEADER = ":thinking_face: Encontre estas palabras relacionadas con: %s \n\n";
 

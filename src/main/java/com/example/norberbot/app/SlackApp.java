@@ -51,7 +51,7 @@ public class SlackApp {
             AppMentionEvent incomingEvent = payload.getEvent();
             String[] mention = incomingEvent.getText().split("<+@+\\w+>+");
             if (mention.length > 1) {
-                String content = mention[1].replaceAll("\\s", "");
+                String content = mention[1];
                 mentionHandler.handle(incomingEvent, content, ctx.client());
             }
             return ctx.ack();

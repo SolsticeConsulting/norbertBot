@@ -32,12 +32,12 @@ public class MentionHandler extends SlackHandler implements EventHandler {
         String[] content = eventContent.split("<+@+\\w+>+");
         List<LayoutBlock> layoutBlockAnswer = new ArrayList<>();
         if (!ArrayUtils.isEmpty(content)) {
-            String mentionContent = content[0].replaceAll("\\s", "");
-            if (Pattern.matches("\\w+(:+)", mentionContent)) {
+            String mentionContent = content[0].trim();
+            if (Pattern.matches("\\p{L}+(\\s\\p{L}+)*:", mentionContent)) {
                 String word = Splitter.on(":").split(mentionContent).iterator().next();
                 layoutBlockAnswer = List.copyOf(handleDefinition(word));
                 replyToAnEventWithBlockMessage(event, client, layoutBlockAnswer.toArray(LayoutBlock[]::new));
-            } else if (mentionContent.equals("opciones")) {
+            } else if (eventContent.equals("opciones")) {
                 List<String> availableDefinitions = StreamEx.of(definitionService.getAllWords()).map(Definition::getWord).toList();
                 replyToAnEventWithMessage(event, client, handleMultipleOptions(availableDefinitions, AnswerHelper.getOptionsHeaderText()));
             } else {
@@ -47,12 +47,13 @@ public class MentionHandler extends SlackHandler implements EventHandler {
     }
 
     private List<LayoutBlock> handleDefinition(String word) {
-        List<String> possibleDefinitions = StreamEx.of(definitionService.findWordsThatContains(word)).map(Definition::getWord).toList();
+        List<Definition> possibleDefinitions =definitionService.findWordsThatContains(word);
         List<LayoutBlock> blockElements = new ArrayList<>();
         if (!possibleDefinitions.isEmpty()) {
             if (possibleDefinitions.size() > 5) {
                 String header = String.format(AnswerHelper.getMultipleOptionsHeader(), word);
-                blockElements.add(section(section -> section.text(markdownText(handleMultipleOptions(possibleDefinitions, header)))));
+                List<String> multipleDefinitions = StreamEx.of(possibleDefinitions).map(Definition::getWord).toList();
+                blockElements.add(section(section -> section.text(markdownText(handleMultipleOptions(multipleDefinitions, header)))));
                 blockElements.add(section(section -> section.text(markdownText(AnswerHelper.getMultipleOptionsFooter()))));
                 return blockElements;
             }

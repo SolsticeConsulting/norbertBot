@@ -1,5 +1,6 @@
 package com.example.norberbot.handler;
 
+import com.example.norberbot.model.Definition;
 import com.slack.api.Slack;
 import com.slack.api.methods.MethodsClient;
 import com.slack.api.methods.SlackApiException;
@@ -33,13 +34,13 @@ public class SlackHandler {
         );
     }
 
-    protected List<LayoutBlock> buildBlockElements(String header, List<String> actionables) {
+    protected List<LayoutBlock> buildBlockElements(String header, List<Definition> definitions) {
         List<LayoutBlock> blockElements = new ArrayList<>();
         blockElements.add(section(section -> section.text(markdownText(header))));
         blockElements.add(divider());
         List<BlockElement> buttonElements = new ArrayList<>();
-        for (String actionable : actionables) {
-            buttonElements.add(button(b -> b.text(plainText(pt -> pt.text(actionable))).value(actionable).actionId(actionable)));
+        for (Definition definition : definitions) {
+            buttonElements.add(button(b -> b.text(plainText(pt -> pt.text(definition.getWord()))).value(definition.getWord()).actionId(definition.getId().toString())));
         }
         blockElements.add(actions(buttonElements));
         return blockElements;

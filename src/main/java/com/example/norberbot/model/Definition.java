@@ -9,6 +9,9 @@ import javax.persistence.*;
 public class Definition {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name = "Palabras")
     private String word;
 
@@ -39,6 +42,8 @@ public class Definition {
         this.link = link;
         this.other = other;
     }
+
+    public Long getId() {return id;}
 
     public String getWord() {
         return word;
