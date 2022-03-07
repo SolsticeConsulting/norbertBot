@@ -2,7 +2,6 @@ package com.example.norberbot.calendar;
 
 import com.example.norberbot.handler.SlackHandler;
 import com.slack.api.Slack;
-import com.slack.api.methods.MethodsClient;
 import com.slack.api.methods.SlackApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,10 +18,10 @@ import java.util.List;
 public class CalendarHandler extends SlackHandler {
 
     @Autowired
-    CalendarService calendarService;
+    private CalendarService calendarService;
 
-    @Scheduled(cron = "0 0/5 18 * * ?")
-    public void test() {
+    @Scheduled(cron = "0 0/5 11 * * ?")
+    public void checkDate() {
         List<String> slackChannels = new ArrayList<>(Arrays.asList(System.getenv("MY_CHANNELS").split(",")));
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM");
         Date today = new Date();
@@ -32,7 +31,7 @@ public class CalendarHandler extends SlackHandler {
             slackChannels.forEach(channel -> {
                 foundDates.forEach(datefound -> {
                     try {
-                        postCalendarMessage(Slack.getInstance().methods(), channel, datefound.getDate());
+                        postCalendarMessage(Slack.getInstance().methods(), channel, datefound.getDescription());
                     } catch (SlackApiException | IOException e) {
                         e.printStackTrace();
                     }
