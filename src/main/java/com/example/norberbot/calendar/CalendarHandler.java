@@ -1,6 +1,8 @@
 package com.example.norberbot.calendar;
 
 import com.example.norberbot.handler.SlackHandler;
+import com.slack.api.Slack;
+import com.slack.api.methods.MethodsClient;
 import com.slack.api.methods.SlackApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,27 +20,23 @@ public class CalendarHandler extends SlackHandler {
 
     @Autowired
     CalendarService calendarService;
-    List<String> slackChannels = new ArrayList<String>(Arrays.asList(System.getenv("MY_CHANNELS").split(",")));
 
     @Scheduled(cron = "0 0/5 18 * * ?")
     public void test() {
+        List<String> slackChannels = new ArrayList<>(Arrays.asList(System.getenv("MY_CHANNELS").split(",")));
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM");
         Date today = new Date();
         String date = sdf.format(today);
-
         List<Calendar> foundDates = calendarService.FindByDate(date);
-
-
-        if (foundDates.size() > 0) {
+        if (!foundDates.isEmpty()) {
             slackChannels.forEach(channel -> {
-                    foundDates.forEach(datefound -> {
-                        try {
-                        postCalendarMessage(channel,datefound.getDate());
-                        }
-                        catch (SlackApiException | IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
+                foundDates.forEach(datefound -> {
+                    try {
+                        postCalendarMessage(Slack.getInstance().methods(), channel, datefound.getDate());
+                    } catch (SlackApiException | IOException e) {
+                        e.printStackTrace();
+                    }
+                });
             });
         }
     }

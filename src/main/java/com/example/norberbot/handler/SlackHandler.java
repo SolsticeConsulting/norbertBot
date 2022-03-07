@@ -45,27 +45,24 @@ public class SlackHandler {
         return blockElements;
     }
 
-<<<<<<< HEAD
-    protected void replyToAnEventWithMessage(Event  event, @NotNull MethodsClient client, String text) throws SlackApiException, IOException {
+    protected void replyToAnEventWithMessage(Event event, @NotNull MethodsClient client, String text) throws SlackApiException, IOException {
         AppMentionEvent appMentionEvent = (AppMentionEvent) event;
         client.chatPostMessage(req -> req
                 .channel(appMentionEvent.getChannel())
                 .text(text)
         );
-=======
-    protected void postCalendarMessage(@NotNull String id, @NotNull String text) throws SlackApiException, IOException{
-        var client = Slack.getInstance().methods();
+    }
+
+    protected void postCalendarMessage(@NotNull MethodsClient client, @NotNull String id, @NotNull String text) throws SlackApiException, IOException {
         var logger = LoggerFactory.getLogger("my-awesome-slack-app");
         try {
-            var result = client.chatPostMessage(r -> r
+            client.chatPostMessage(r -> r
                     .token(SLACK_BOT_TOKEN)
                     .channel(id)
                     .text(text)
             );
-            logger.info("result {}", result);
         } catch (IOException | SlackApiException e) {
             logger.error("error: {}", e.getMessage(), e);
         }
->>>>>>> fa87be9111f6295aaaf79e4b4c5aac9e8df3273b
     }
 }
