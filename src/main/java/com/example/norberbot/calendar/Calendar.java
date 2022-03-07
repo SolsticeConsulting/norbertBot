@@ -3,20 +3,25 @@ package com.example.norberbot.calendar;
 import org.hibernate.annotations.Type;
 import org.jetbrains.annotations.NotNull;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-@Table(name="calendar")
+@Table(name = "calendar")
 @Entity
 public class Calendar {
 
-    @Type(type="text") @Column(length = 5) @NotNull
-    private String date;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Type(type = "text")
+    @NotNull
+    private String date;
+
+    @Type(type = "text")
     private String name;
-    @Type(type="text") @NotNull
+
+    @Type(type = "text")
+    @NotNull
     private String description;
 
     public Calendar(@NotNull String date, String name, @NotNull String description) {
@@ -24,6 +29,7 @@ public class Calendar {
         this.name = name;
         this.description = description;
     }
+
     public Calendar() {
     }
 

@@ -57,7 +57,7 @@ public class SlackHandler {
         var logger = LoggerFactory.getLogger("my-awesome-slack-app");
         try {
             client.chatPostMessage(r -> r
-                    .token(SLACK_BOT_TOKEN)
+                    .token(System.getenv("SLACK_BOT_TOKEN"))
                     .channel(id)
                     .text(text)
             );
