@@ -49,11 +49,11 @@ public class SlackApp {
 
         app.event(AppMentionEvent.class, (payload, ctx) -> {
             AppMentionEvent incomingEvent = payload.getEvent();
-            String[] mention = incomingEvent.getText().split("<+@+\\w+>+");
-            if (mention.length > 1) {
-                String content = mention[1];
-                mentionHandler.handle(incomingEvent, content, ctx.client());
-            }
+            ctx.client().chatPostEphemeral(r -> r
+                    .token(System.getenv("SLACK_BOT_TOKEN"))
+                    .channel(incomingEvent.getChannel())
+                    .text("hOLAAASDFASD")
+            );
             return ctx.ack();
         });
 
