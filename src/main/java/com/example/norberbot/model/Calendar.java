@@ -1,4 +1,4 @@
-package com.example.norberbot.calendar;
+package com.example.norberbot.model;
 
 import org.hibernate.annotations.Type;
 import org.jetbrains.annotations.NotNull;

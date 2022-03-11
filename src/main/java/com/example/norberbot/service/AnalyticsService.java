@@ -19,7 +19,9 @@ public class AnalyticsService {
     }
 
     public List<Analytics> getAnalytics() {
-        return StreamEx.of(analyticsRepository.findAll()).toList();
+        return StreamEx.of(analyticsRepository.findAll())
+                .filter(word -> word.getQuantity() > 0)
+                .toList();
     }
 
     public void analyticsHandler(String name) {
@@ -36,10 +38,11 @@ public class AnalyticsService {
 
     public void resetAnalytics() {
         List<Analytics> analyticsFound = analyticsRepository.findAll();
-
         for (Analytics word : analyticsFound) {
             word.resetQuantity();
         }
+
+        analyticsRepository.saveAll(analyticsFound);
     }
 
 }
