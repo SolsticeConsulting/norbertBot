@@ -20,7 +20,7 @@ public class AnalyticsSchedule extends SlackHandler {
     AnalyticsService analyticsService;
 
     // @Scheduled(cron = "0 15 10 L * ?") último día del mes 10:15 AM
-    @Scheduled(cron = "*/2 * * * *") // Test cada 2 minutos
+    @Scheduled(cron = "0 0/2 * * * ?", zone = "GMT-3") // Test cada 2 minutos
     public void monthlyStats() throws SlackApiException, IOException {
         String channel = "idea-bot";// test
 

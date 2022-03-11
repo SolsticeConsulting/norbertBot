@@ -23,7 +23,7 @@ public class CalendarSchedule extends SlackHandler {
     private CalendarService calendarService;
 
     // @Scheduled(cron = "0 15 10 * * ?", zone = "GMT-3") dejar este luego del test
-    @Scheduled(cron = "*/2 * * * *", zone = "GMT-3") // test c/2 minutos
+    @Scheduled(cron = "0 0/2 * * * ?", zone = "GMT-3") // test c/2 minutos
     public void checkDate() {
         List<String> slackChannels = new ArrayList<>(Arrays.asList(System.getenv("MY_CHANNELS").split(",")));
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM");
