@@ -1,6 +1,8 @@
-package com.example.norberbot.calendar;
+package com.example.norberbot.schedulledTasks;
 
 import com.example.norberbot.handler.SlackHandler;
+import com.example.norberbot.model.Calendar;
+import com.example.norberbot.service.CalendarService;
 import com.slack.api.Slack;
 import com.slack.api.methods.SlackApiException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +17,13 @@ import java.util.Date;
 import java.util.List;
 
 @Component
-public class CalendarHandler extends SlackHandler {
+public class CalendarSchedule extends SlackHandler {
 
     @Autowired
     private CalendarService calendarService;
 
-    @Scheduled(cron = "0 15 10 * * ?", zone = "GMT-3")
+    // @Scheduled(cron = "0 15 10 * * ?", zone = "GMT-3") dejar este luego del test
+    @Scheduled(cron = "*/2 * * * *", zone = "GMT-3") // test c/2 minutos
     public void checkDate() {
         List<String> slackChannels = new ArrayList<>(Arrays.asList(System.getenv("MY_CHANNELS").split(",")));
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM");

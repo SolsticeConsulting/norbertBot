@@ -19,12 +19,14 @@ public class AnalyticsService {
     }
 
     public List<Analytics> getAnalytics() {
-        return StreamEx.of(analyticsRepository.findAll()).toList();
+        return StreamEx.of(analyticsRepository.findAll())
+                .filter(word -> word.getQuantity() > 0)
+                .toList();
     }
 
-    public void analyticsHandler(String name){
+    public void analyticsHandler(String name) {
         Analytics analyticsFound = analyticsRepository.findByWord(name);
-        if(analyticsFound == null) {
+        if (analyticsFound == null) {
             Analytics newRegistry = new Analytics(name);
             newRegistry.updateQuantity();
             analyticsRepository.save(newRegistry);
@@ -33,4 +35,14 @@ public class AnalyticsService {
             analyticsRepository.save(analyticsFound);
         }
     }
+
+    public void resetAnalytics() {
+        List<Analytics> analyticsFound = analyticsRepository.findAll();
+        for (Analytics word : analyticsFound) {
+            word.resetQuantity();
+        }
+
+        analyticsRepository.saveAll(analyticsFound);
+    }
+
 }
