@@ -2,7 +2,7 @@ package com.example.norberbot.helper;
 
 public class AnswerHelper {
     private static final String HELP = """
-            ¡Hola! Soy el bot de IDEA.
+            ¡Hola! Soy Bob el Deconstructor :derelict_house_building: :rainbow:.
                         
             Para :mag: buscar una definición debes que mencionarme, escribir la palabra deseada y finalizar con ' : '
                                     
@@ -12,13 +12,13 @@ public class AnswerHelper {
             Si deseas ver un listado de las palabras disponibles :page_with_curl:, debes mencionarme y escribir la palabra ‘opciones’
                                     
                                   
-            Tambien podes acceder al glosario completo :books: haciendo click en el siguiente enlace:
+            También podrás acceder al glosario completo :books: haciendo click en el siguiente enlace:
                                     
                                     
             :link: https://docs.google.com/spreadsheets/d/1DrQyGDxxDxlUKVW4xAdprgV04bs-FTmNCw5c40IXgfc/edit?usp=sharing
             """;
 
-    private static final String OPTIONS_HEADER = "Palabras Disponibles en el glosario IDEA\n\n";
+    private static final String OPTIONS_HEADER = ":books: Palabras Disponibles en el glosario IDEA :rainbow: \n\n";
 
     private static final String NO_DEFINITIONS = """
             Lo siento, no encontré definiciones en el glosario de IDEA relacionadas con esa palabra :pleading_face:.
