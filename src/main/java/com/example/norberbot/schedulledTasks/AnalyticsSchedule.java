@@ -11,6 +11,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -21,7 +23,7 @@ public class AnalyticsSchedule extends SlackHandler {
 
     @Scheduled(cron = "0 15 10 L *  ?", zone = "GMT-3")
     public void monthlyStats() throws SlackApiException, IOException {
-        String channel = "idea-bot";// test
+        List<String> slackChannels = new ArrayList<>(Arrays.asList(System.getenv("MY_CHANNELS").split(",")));
 
         List<Analytics> analytics = analyticsService.getAnalytics();
         StringBuilder builder = new StringBuilder();
@@ -30,11 +32,14 @@ public class AnalyticsSchedule extends SlackHandler {
             builder.append(word.toString());
             builder.append("\n");
         }
-        String msg = builder.toString();
-
-        postCalendarMessage(Slack.getInstance().methods(), channel, msg);
-        // reset stats
+        String message = builder.toString();
+        slackChannels.forEach(channel -> {
+            try {
+                postCalendarMessage(Slack.getInstance().methods(), channel, message);
+            } catch (SlackApiException | IOException e) {
+                e.printStackTrace();
+            }
+        });
         analyticsService.resetAnalytics();
-
     }
 }
