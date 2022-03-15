@@ -36,6 +36,10 @@ public class AnswerHelper {
 
     private static final String MULTIPLE_OPTIONS_FOOTER = "Para seleccionar las palabras por favor se mas especifico, limita la búsqueda :nerd_face:";
 
+    private static final String NOT_ANALYTICS_FOUNDED = "Este mes no se han buscado palabras :cry:";
+
+    private static final String ANALYTICS_HEADER = ":bar_chart: Palabras buscadas este mes: \n";
+
     public static String getHelpText() {
         return HELP;
     }
@@ -67,4 +71,8 @@ public class AnswerHelper {
     public static String getMultipleOptionsFooter() {
         return MULTIPLE_OPTIONS_FOOTER;
     }
+
+    public static String getNotAnalyticsFounded(){ return NOT_ANALYTICS_FOUNDED;}
+
+    public static String getAnalyticsHeader(){ return ANALYTICS_HEADER;}
 }
