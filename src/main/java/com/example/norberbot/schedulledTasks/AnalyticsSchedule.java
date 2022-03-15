@@ -5,14 +5,12 @@ import com.example.norberbot.model.Analytics;
 import com.example.norberbot.service.AnalyticsService;
 import com.slack.api.Slack;
 import com.slack.api.methods.SlackApiException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -21,25 +19,33 @@ public class AnalyticsSchedule extends SlackHandler {
     @Autowired
     AnalyticsService analyticsService;
 
-    @Scheduled(cron = "0 15 10 L *  ?", zone = "GMT-3")
+    //@Scheduled(cron = "0 15 10 L *  ?", zone = "GMT-3")
+    @Scheduled(cron = "0 0/5 16 * *  ?", zone = "GMT-3")
     public void monthlyStats() throws SlackApiException, IOException {
-        List<String> slackChannels = new ArrayList<>(Arrays.asList(System.getenv("MY_CHANNELS").split(",")));
+        // List<String> slackChannels = new ArrayList<>(Arrays.asList(System.getenv("MY_CHANNELS").split(",")));
+
+        List<String> slackChannels = new ArrayList<>();
+        slackChannels.add("idea-bot-test");
 
         List<Analytics> analytics = analyticsService.getAnalytics();
         StringBuilder builder = new StringBuilder();
 
-        for (Analytics word : analytics) {
-            builder.append(word.toString());
-            builder.append("\n");
-        }
-        String message = builder.toString();
-        slackChannels.forEach(channel -> {
-            try {
-                postCalendarMessage(Slack.getInstance().methods(), channel, message);
-            } catch (SlackApiException | IOException e) {
-                e.printStackTrace();
+        if (analytics.size() == 0) {
+            System.out.println("No se han encontrado palabras.");
+        } else {
+            for (Analytics word : analytics) {
+                builder.append(word.toString());
+                builder.append("\n");
             }
-        });
+            String message = builder.toString();
+            slackChannels.forEach(channel -> {
+                try {
+                    postCalendarMessage(Slack.getInstance().methods(), channel, message);
+                } catch (SlackApiException | IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
         analyticsService.resetAnalytics();
     }
 }
