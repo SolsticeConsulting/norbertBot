@@ -2,6 +2,7 @@ package com.example.norberbot.handler;
 
 import com.example.norberbot.helper.AnswerHelper;
 import com.example.norberbot.model.Definition;
+import com.example.norberbot.service.AnalyticsService;
 import com.example.norberbot.service.DefinitionService;
 import com.slack.api.bolt.context.builtin.ActionContext;
 import com.slack.api.methods.MethodsClient;
@@ -22,10 +23,14 @@ public class BlockActionHandler extends SlackHandler implements ActionHandler {
     @Autowired
     private DefinitionService definitionService;
 
+    @Autowired
+    private AnalyticsService analyticsService;
+
     public void handle(ActionContext actionContext, String content, MethodsClient client) {
         Definition definition = definitionService.findWord(content);
         try {
             actionContext.respond(buildBlockElements(definition));
+            analyticsService.analyticsHandler(definition.getWord());
         } catch (IOException e) {
             e.printStackTrace();
         }
