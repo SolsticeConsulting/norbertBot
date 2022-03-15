@@ -23,11 +23,18 @@ public class AnalyticsSchedule extends SlackHandler {
 
     @Scheduled(cron = "0 15 10 L *  ?", zone = "GMT-3")
     public void monthlyStats() throws SlackApiException, IOException {
-        List<String> slackChannels = new ArrayList<>(Arrays.asList(System.getenv("MY_CHANNELS").split(",")));
+        // List<String> slackChannels = new
+        // ArrayList<>(Arrays.asList(System.getenv("MY_CHANNELS").split(",")));
+
+        List<String> slackChannels = new ArrayList<>();
+        slackChannels.add("idea-bot-test");
 
         List<Analytics> analytics = analyticsService.getAnalytics();
         StringBuilder builder = new StringBuilder();
 
+        if (analytics.size() == 0) {
+
+        }
         for (Analytics word : analytics) {
             builder.append(word.toString());
             builder.append("\n");
