@@ -37,9 +37,9 @@ public class MentionHandler extends SlackHandler implements EventHandler {
                 String word = Splitter.on(":").split(mentionContent).iterator().next();
                 layoutBlockAnswer = List.copyOf(handleDefinition(word));
                 replyToAnEventWithBlockMessage(event, client, layoutBlockAnswer.toArray(LayoutBlock[]::new));
-            } else if (eventContent.equals("opciones")) {
+            } else if (eventContent.contains("opciones")) {
                 List<String> availableDefinitions = StreamEx.of(definitionService.getAllWords()).map(Definition::getWord).toList();
-                replyToAnEventWithMessage(event, client, handleMultipleOptions(availableDefinitions, AnswerHelper.getOptionsHeaderText()));
+                replyToAnEventWithEphemeral(event, client, handleMultipleOptions(availableDefinitions, AnswerHelper.getOptionsHeaderText()));
             } else {
                 replyToAnEventWithMessage(event, client, AnswerHelper.getHelpText());
             }

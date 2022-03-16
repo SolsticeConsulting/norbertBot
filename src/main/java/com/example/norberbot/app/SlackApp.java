@@ -3,7 +3,9 @@ package com.example.norberbot.app;
 import com.example.norberbot.handler.BlockActionHandler;
 import com.example.norberbot.handler.MentionHandler;
 import com.slack.api.bolt.App;
+import com.slack.api.model.Message;
 import com.slack.api.model.event.AppMentionEvent;
+import com.slack.api.model.event.MessageEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +38,7 @@ public class SlackApp {
             return ctx.ack();
         });
 
-        app.blockAction(Pattern.compile("[\\w\\s]+"),(req, ctx) -> {
+        app.blockAction(Pattern.compile("[\\w\\s]+"), (req, ctx) -> {
             String buttonsValue = req.getPayload().getActions().get(0).getValue();
             if (req.getPayload().getResponseUrl() != null) {
                 blockActionHandler.handle(ctx, buttonsValue, ctx.client());
