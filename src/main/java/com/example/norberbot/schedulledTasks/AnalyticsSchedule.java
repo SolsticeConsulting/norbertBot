@@ -23,20 +23,16 @@ public class AnalyticsSchedule extends SlackHandler {
 
     @Scheduled(cron = "0 15 10 L *  ?", zone = "GMT-3")
     public void monthlyStats() throws SlackApiException, IOException {
-        List<String> slackChannels = new ArrayList<>(Arrays.asList(System.getenv("MY_CHANNELS").split(",")));
-
         List<Analytics> analytics = analyticsService.getAnalytics();
 
         StringBuilder builder = new StringBuilder();
 
-        if (analytics.size() == 0) {
-            slackChannels.forEach(channel -> {
-                try {
-                    postCalendarMessage(Slack.getInstance().methods(), channel, AnswerHelper.getNotAnalyticsFounded());
-                } catch (SlackApiException | IOException e) {
-                    e.printStackTrace();
-                }
-            });
+        if (analytics.isEmpty()) {
+            try {
+                postCalendarMessage(Slack.getInstance().methods(), "latam-idea", AnswerHelper.getNotAnalyticsFounded());
+            } catch (SlackApiException | IOException e) {
+                e.printStackTrace();
+            }
         } else {
             builder.append(AnswerHelper.getAnalyticsHeader());
             for (Analytics word : analytics) {
@@ -44,13 +40,11 @@ public class AnalyticsSchedule extends SlackHandler {
                 builder.append("\n");
             }
             String message = builder.toString();
-            slackChannels.forEach(channel -> {
-                try {
-                    postCalendarMessage(Slack.getInstance().methods(), channel, message);
-                } catch (SlackApiException | IOException e) {
-                    e.printStackTrace();
-                }
-            });
+            try {
+                postCalendarMessage(Slack.getInstance().methods(), "latam-idea", message);
+            } catch (SlackApiException | IOException e) {
+                e.printStackTrace();
+            }
         }
         analyticsService.resetAnalytics();
     }
