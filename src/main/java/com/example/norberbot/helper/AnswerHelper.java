@@ -6,7 +6,7 @@ public class AnswerHelper {
                         
             Para :mag: buscar una definición debes que mencionarme, escribir la palabra deseada y finalizar con ' : '
                                     
-            Acá tienes un ejemplo, @Ideabot abuso:
+            Acá tienes un ejemplo, @Bot_El_Deconstructor abuso:
                                     
                                    
             Si deseas ver un listado de las palabras disponibles :page_with_curl:, debes mencionarme y escribir la palabra ‘opciones’
