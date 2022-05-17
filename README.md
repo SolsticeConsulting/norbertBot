@@ -21,14 +21,14 @@ After download all those tools and cloning the repo, you can open the project in
 1. To download the dependencies, you can use the following tutorial for IntelliJ. [How to download dependencies in IntelliJ](https://www.jetbrains.com/idea/guide/tutorials/working-with-gradle/gradle-dependencies/)
 2. You need to load some enviroment variables in your IDE, you can follow this [tutorial](https://www.jetbrains.com/help/objc/add-environment-variables-and-program-arguments.html#add-environment-variables) to learn how to load them. These are the variables that you need to load: 
 
-* **SLACK_BOT_TOKEN** : xoxb-3069065446835-3060123218567-S2bf0vcGsRv0foZyL1y9VDdY
+* **SLACK_BOT_TOKEN** : 
 
-* **SLACK_APP_TOKEN** : xapp-1-A0326MA0N4A-3114325303814-993b2c7d5f03758ef0728919d4130505016999ae7bf536a38c42df510d784287
+* **SLACK_APP_TOKEN** : 
 
-* **SLACK_SIGNING_SECRET** : 3bdc95859d0a71bf5a791661988bc0f2
+* **SLACK_SIGNING_SECRET** : 
 
-* **DATA_SOURCE** : jdbc:mysql:///ideadatabase?cloudSqlInstance=idea-bot-323314:us-central1:slackbot-mysql&socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=slack-admin&password=ideaadmin
+* **DATA_SOURCE** : 
 
-* **INSTANCE_CONNECTION_NAME** : idea-bot-323314:us-central1:slackbot-mysql
+* **INSTANCE_CONNECTION_NAME** : 
 
-* **MY_CHANNELS** : channel-to-test-bot
+* **MY_CHANNELS** : 
